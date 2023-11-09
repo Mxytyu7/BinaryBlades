@@ -5,4 +5,4 @@ but with 50 command
 
 # command list:
 
-ping, hello, ban, unban, kick, mute, unmute, rank, roles, unrank, clear
+ping, hello, ban, unban, kick, mute, unmute, rank, roles, unrank, clear, coin fip, how sus, banlist, create role
