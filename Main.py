@@ -23,6 +23,17 @@ async def ping(ctx):
     latency = round(bot.latency * 1000)  # Convert latency to milliseconds
     await ctx.send(f'Pong! Latency is {latency}ms')
 
+@bot.command()
+async def kick(ctx, member: discord.Member, *, reason=None):
+    # Check if the user invoking the command has the "kick" permission
+    if ctx.author.guild_permissions.kick_members:
+        await member.kick(reason=reason)
+        await ctx.send(f'{member.mention} has been kicked.')
+    else:
+        await ctx.send("You do not have permission to use this command.")
+
+
+
 # Run the bot with your token
 bot.run("YOUR_BOT_TOKEN")
 # replace YOUR_BOT_TOKEN with you bot s'token
