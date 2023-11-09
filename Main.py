@@ -41,7 +41,24 @@ async def ban(ctx, member: discord.Member, *, reason=None):
     else:
         await ctx.send("You do not have permission to use this command.")
 
+@bot.command()
+async def unban(ctx, *, member):
+    # Check if the user invoking the command has the "ban" permission
+    if ctx.author.guild_permissions.ban_members:
+        banned_users = await ctx.guild.bans()
+        member_name, member_discriminator = member.split('#')
 
+        for ban_entry in banned_users:
+            user = ban_entry.user
+
+            if (user.name, user.discriminator) == (member_name, member_discriminator):
+                await ctx.guild.unban(user)
+                await ctx.send(f'Unbanned {user.mention}')
+                return
+
+        await ctx.send('User not found in the ban list.')
+    else:
+        await ctx.send("You do not have permission to use this command.")
 
 # Run the bot with your token
 bot.run("YOUR_BOT_TOKEN")
