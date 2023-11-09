@@ -5,5 +5,4 @@ but with 50 command
 
 # command list:
 
-ping
-hello
+ping, hello, ban, unban, kick, mute, unmute, rank, roles, unrank, clear
