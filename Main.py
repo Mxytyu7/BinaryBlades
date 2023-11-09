@@ -60,6 +60,44 @@ async def unban(ctx, *, member):
     else:
         await ctx.send("You do not have permission to use this command.")
 
+# Define a "mute" command
+@bot.command()
+async def mute(ctx, member: discord.Member):
+    # Check if the user invoking the command has the "manage_roles" permission
+    if ctx.author.guild_permissions.manage_roles:
+        # Check if a "Muted" role exists, and create it if not
+        muted_role = discord.utils.get(ctx.guild.roles, name="Muted")
+        if muted_role is None:
+            muted_role = await ctx.guild.create_role(name="Muted")
+            for channel in ctx.guild.channels:
+                await channel.set_permissions(muted_role, send_messages=False)
+
+        # Add the "Muted" role to the member
+        await member.add_roles(muted_role)
+        await ctx.send(f'{member.mention} has been muted.')
+
+    else:
+        await ctx.send("You do not have permission to use this command.")
+
+# Define an "unmute" command
+@bot.command()
+async def unmute(ctx, member: discord.Member):
+    # Check if the user invoking the command has the "manage_roles" permission
+    if ctx.author.guild_permissions.manage_roles:
+        # Find the "Muted" role
+        muted_role = discord.utils.get(ctx.guild.roles, name="Muted")
+
+        if muted_role is not None and muted_role in member.roles:
+            # Remove the "Muted" role from the member
+            await member.remove_roles(muted_role)
+            await ctx.send(f'{member.mention} has been unmuted.')
+        else:
+            await ctx.send(f'{member.mention} is not muted.')
+
+    else:
+        await ctx.send("You do not have permission to use this command.")
+
+
 # Run the bot with your token
 bot.run("YOUR_BOT_TOKEN")
 # replace YOUR_BOT_TOKEN with you bot s'token
