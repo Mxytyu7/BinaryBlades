@@ -157,6 +157,19 @@ async def create_role(ctx, role_name, color: discord.Color = None):
     else:
         await ctx.send("You do not have permission to use this command.")
 
+# Define a "clear" command
+@bot.command()
+async def clear(ctx, amount: int):
+    # Check if the user invoking the command has the "manage_messages" permission
+    if ctx.author.guild_permissions.manage_messages:
+        if 1 <= amount <= 100:  # Limit the number of messages to delete
+            await ctx.channel.purge(limit=amount + 1)  # +1 to account for the command message
+            await ctx.send(f'{amount} messages have been cleared.', delete_after=5)
+        else:
+            await ctx.send('Please specify a number of messages to delete between 1 and 100.')
+    else:
+        await ctx.send("You do not have permission to use this command.")
+
 
 # Run the bot with your token
 bot.run("YOUR_BOT_TOKEN")
