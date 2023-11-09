@@ -1,7 +1,9 @@
 import discord
+import random
 from discord.ext import commands
 
 # pip install discord.py
+# pip install random
 
 
 # Create an instance of the bot
@@ -167,6 +169,38 @@ async def clear(ctx, amount: int):
             await ctx.send(f'{amount} messages have been cleared.', delete_after=5)
         else:
             await ctx.send('Please specify a number of messages to delete between 1 and 100.')
+    else:
+        await ctx.send("You do not have permission to use this command.")
+
+# Define a "how_sus" command
+@bot.command()
+async def how_sus(ctx, member: discord.Member = None):
+    if member is None:
+        member = ctx.author
+
+    sus_level = random.randint(0, 100)
+    sus_message = f"{member.mention} is {sus_level}% sus."
+
+    await ctx.send(sus_message)
+
+# Define a "coinflip" command
+@bot.command()
+async def coinflip(ctx):
+    result = random.choice(["Heads", "Tails"])
+    await ctx.send(f"The coin landed on **{result}**!")
+
+# Define a "ban_list" command
+@bot.command()
+async def ban_list(ctx):
+    # Check if the user invoking the command has the "ban_members" permission
+    if ctx.author.guild_permissions.ban_members:
+        bans = await ctx.guild.bans()
+        if bans:
+            banned_users = [f"{entry.user.name}#{entry.user.discriminator}" for entry in bans]
+            ban_list = "\n".join(banned_users)
+            await ctx.send(f"List of banned users:\n{ban_list}")
+        else:
+            await ctx.send("There are no banned users in this server.")
     else:
         await ctx.send("You do not have permission to use this command.")
 
