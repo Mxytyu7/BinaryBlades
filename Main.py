@@ -97,6 +97,33 @@ async def unmute(ctx, member: discord.Member):
     else:
         await ctx.send("You do not have permission to use this command.")
 
+# Define a "rank" command
+@bot.command()
+async def rank(ctx, member: discord.Member = None):
+    if member is None:
+        member = ctx.author
+
+    roles = member.roles[1:]  # Exclude the @everyone role
+
+    if roles:
+        role_names = ", ".join([role.name for role in roles])
+    else:
+        role_names = "No roles"
+
+    await ctx.send(f'{member.mention}\'s roles: {role_names}')
+
+# Define a "roles" command
+@bot.command()
+async def roles(ctx):
+    # Create an embed to display the roles
+    embed = discord.Embed(
+        title='Server Roles',
+        description='\n'.join([role.mention for role in ctx.guild.roles]),
+        color=discord.Color.blue()
+    )
+
+    await ctx.send(embed=embed)
+
 
 # Run the bot with your token
 bot.run("YOUR_BOT_TOKEN")
