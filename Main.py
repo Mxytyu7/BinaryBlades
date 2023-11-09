@@ -32,6 +32,15 @@ async def kick(ctx, member: discord.Member, *, reason=None):
     else:
         await ctx.send("You do not have permission to use this command.")
 
+@bot.command()
+async def ban(ctx, member: discord.Member, *, reason=None):
+    # Check if the user invoking the command has the "ban" permission
+    if ctx.author.guild_permissions.ban_members:
+        await member.ban(reason=reason)
+        await ctx.send(f'{member.mention} has been banned.')
+    else:
+        await ctx.send("You do not have permission to use this command.")
+
 
 
 # Run the bot with your token
