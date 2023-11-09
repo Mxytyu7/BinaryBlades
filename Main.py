@@ -204,6 +204,74 @@ async def ban_list(ctx):
     else:
         await ctx.send("You do not have permission to use this command.")
 
+# Define a "calculate" command
+@bot.command()
+async def calculate(ctx, *, expression):
+    try:
+        # Evaluate the mathematical expression
+        result = eval(expression)
+        await ctx.send(f'Result: {result}')
+    except Exception as e:
+        await ctx.send(f"An error occurred: {str(e)}")
+
+# Define a "random_color" command
+@bot.command()
+async def random_color(ctx):
+    # Generate a random color in hexadecimal format
+    random_hex_color = "#{:02x}{:02x}{:02x}".format(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
+    # Create an embed with the random color
+    embed = discord.Embed(
+        title='Random Color',
+        color=int(random_hex_color[1:], 16)
+    )
+    embed.set_thumbnail(url=f'attachment://color.png')
+
+    # Send the embed with the color as an attachment
+    await ctx.send(file=discord.File("color.png"))
+    await ctx.send(embed=embed)
+
+# Define an "insult" command
+@bot.command()
+async def insult(ctx, member: discord.Member):
+    insults = [
+        f"{member.mention}, you're as useless as the 'g' in lasagna.",
+        f"{member.mention}, you must be a keyboard, because you're just my type.",
+        f"{member.mention}, you're so ugly, when your mom dropped you off at school, she got a fine for littering.",
+        f"{member.mention}, I'd agree with you, but then we'd both be wrong.",
+    ]
+    random_insult = random.choice(insults)
+    await ctx.send(random_insult)
+
+
+
+# Define an "8ball" command
+@bot.command()
+async def 8ball(ctx, *, question):
+    responses = [
+        "It is certain.",
+        "It is decidedly so.",
+        "Without a doubt.",
+        "Yes – definitely.",
+        "You may rely on it.",
+        "As I see it, yes.",
+        "Most likely.",
+        "Outlook good.",
+        "Signs point to yes.",
+        "Reply hazy, try again.",
+        "Ask again later.",
+        "Better not tell you now.",
+        "Cannot predict now.",
+        "Concentrate and ask again.",
+        "Don't count on it.",
+        "My reply is no.",
+        "My sources say no.",
+        "Outlook not so good.",
+        "Very doubtful."
+    ]
+    
+    response = random.choice(responses)
+    await ctx.send(f"**Question:** {question}\n**Answer:** {response}")
 
 # Run the bot with your token
 bot.run("YOUR_BOT_TOKEN")
