@@ -124,6 +124,39 @@ async def roles(ctx):
 
     await ctx.send(embed=embed)
 
+# Define an "unrank" command
+@bot.command()
+async def unrank(ctx, member: discord.Member, *, role_name):
+    # Check if the user invoking the command has the "manage_roles" permission
+    if ctx.author.guild_permissions.manage_roles:
+        role = discord.utils.get(ctx.guild.roles, name=role_name)
+
+        if role is not None and role in member.roles:
+            await member.remove_roles(role)
+            await ctx.send(f'{member.mention} has been unranked from {role_name}.')
+        else:
+            await ctx.send(f'{member.mention} does not have the role {role_name}.')
+
+    else:
+        await ctx.send("You do not have permission to use this command.")
+
+# Define a "create_role" command
+@bot.command()
+async def create_role(ctx, role_name, color: discord.Color = None):
+    # Check if the user invoking the command has the "manage_roles" permission
+    if ctx.author.guild_permissions.manage_roles:
+        guild = ctx.guild
+
+        if discord.utils.get(guild.roles, name=role_name) is None:
+            # Create the role with the specified name and color
+            new_role = await guild.create_role(name=role_name, color=color)
+
+            await ctx.send(f'Role "{new_role.name}" created.')
+        else:
+            await ctx.send('A role with that name already exists.')
+    else:
+        await ctx.send("You do not have permission to use this command.")
+
 
 # Run the bot with your token
 bot.run("YOUR_BOT_TOKEN")
