@@ -324,5 +324,51 @@ async def unmute(ctx, member: discord.Member, *, reason=None):
     )
     await ctx.send(embed=embed)
 
+# Command 6: !timey-wimey
+def timey_wimey_command():
+    return "⌛ Timey-wimey stuff is happening! *bot disappears momentarily*"
+
+# Command 7: !hugme
+def hugme_command():
+    return "🤗 Virtual hug incoming! *bot sends warm, pixelated hug*"
+
+# Command 8: !fortune-cookie
+def fortune_cookie_command():
+    fortunes = ["You will find a penny and pick it up. All day long, you'll have good luck!", "Beware of low-flying turtles."]
+    return random.choice(fortunes)
+
+# Command 9: !airguitar
+def airguitar_command():
+    return "🎸 *bot shreds a virtual air guitar* Rock on!"
+
+# Command 10: !invisible
+def invisible_command():
+    return "👻 Oops, I turned invisible! Can you see me? *bot tries to sneak around*"
+
+# Note: These commands are designed for fun and may not have practical use cases.
+
+# Command 1: !mindboggle
+def mindboggle_command():
+    return "🤯 Whoa! Your mind has been thoroughly boggled!"
+
+# Command 2: !dance
+def dance_command():
+    return "💃🕺 Let's dance! *bot does a virtual dance*"
+
+# Command 3: !moo
+def moo_command():
+    return "🐄 Moo! Did you know that was a secret cow command?"
+
+# Command 4: !whisper
+def whisper_command():
+    return "*whispers* Did you hear that? No? Good, it was a secret command."
+
+# Command 5: !banana
+def banana_command():
+    return "🍌 Fun fact: Bananas are berries, but strawberries aren't!"
+
+# Note: These are intentionally quirky and may not serve practical purposes!
+
+
 bot.run('your-token-here')
 # replace YOUR_BOT_TOKEN with you bot s'token
