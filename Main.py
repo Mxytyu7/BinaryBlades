@@ -1,5 +1,6 @@
 import discord
 import random
+import requests
 from discord.ext import commands
 
 # pip install discord.py
@@ -13,6 +14,69 @@ bot = commands.Bot(command_prefix='!')
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
+
+
+
+# Define some additional responses for new commands
+cat_facts = ["Cats have five toes on their front paws but only four on their back paws.", "A group of cats is called a clowder."]
+weather_responses = ["Looks like the perfect day to stay indoors and code!", "Cloudy with a chance of virtual rainbows."]
+haiku_topics = ["Nature", "Technology", "Pizza"]
+
+# Define new bot commands
+def cat_fact_command():
+    return random.choice(cat_facts)
+
+def weather_command(location):
+    # Replace this with an actual weather API call based on the location
+    # For simplicity, I'm just providing a random response
+    return random.choice(weather_responses)
+
+def haiku_command(topic):
+    if topic not in haiku_topics:
+        return "Sorry, I can only generate haikus on specific topics."
+    # Replace this with a haiku generation logic based on the topic
+    # For simplicity, I'm just providing a placeholder response
+    return f"An example haiku about {topic}: \nCherry blossoms fall,\nSilent whispers in the breeze,\nNature's quiet dance."
+
+def emoji_command(emotion):
+    # Replace this with a more sophisticated emoji translation logic
+    # For simplicity, I'm just providing a basic mapping
+    emoji_mapping = {"happy": "😄", "sad": "😢", "confused": "😕"}
+    return emoji_mapping.get(emotion, "I don't understand that emotion.")
+
+def riddle_command():
+    riddles = ["The more you take, the more you leave behind. What am I?", "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?"]
+    return random.choice(riddles)
+
+# Example usage of new commands
+print(cat_fact_command())
+print(weather_command("New York"))
+print(haiku_command("Nature"))
+print(emoji_command("happy"))
+print(riddle_command())
+
+
+
+# Define some responses for each command
+compliments = ["You're awesome!", "You're a star!", "Keep shining!"]
+jokes = ["Why don't scientists trust atoms? Because they make up everything!", "What do you call fake spaghetti? An impasta!"]
+quotes = ["The only way to do great work is to love what you do. - Steve Jobs", "Don't cry because it's over, smile because it happened. - Dr. Seuss"]
+
+# Define the bot commands
+def compliment_command():
+    return random.choice(compliments)
+
+def joke_command():
+    return random.choice(jokes)
+
+def quote_command():
+    return random.choice(quotes)
+
+# Example usage
+print(compliment_command())
+print(joke_command())
+print(quote_command())
+
 
 @bot.command()
 async def hello(ctx):
